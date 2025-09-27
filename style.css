@@ -1,6 +1,35 @@
+#container {
+   text-align: center;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column;
+   gap: 12px;
+   height: 100vh;
+   background: white;
+}
+h1 {
+   font-family: 'Trebuchet MS', sans-serif;
+   color: #b2adf0;
+   margin-bottom: 20px;
+   font-size: 38px;
+   text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+}
+
+
 #canvas {
    border: 6px solid mediumslateblue;
+   background: white;
    height: 500px;
    width:900px;
+   border-radius: 13px;
    margin-bottom: 2em;
+}
+button {
+padding: 10px 20px;
+border-radius: 9px;
+font-weight: bold;
+cursor: pointer;
+border: none;
+background: #e4ca61
 }
