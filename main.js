@@ -8,6 +8,10 @@ var reset = false;
 var timepernote = 0;
 var length = 0;
 
+var blob, recorder = null;
+var chunks = [];
+var is_recording = false;
+
 
 const input = document.getElementById('input');
 const color_picker = document.getElementById('color');
@@ -17,6 +21,7 @@ const audioCTX = new AudioContext();
 const gainNode = audioCTX.createGain();
 const volume_Slider = document.getElementById('volume-slider');
 const oscillator = audioCTX.createOscillator();
+const recording_toggle = document.getElementById('record');
 oscillator.connect(gainNode);
 gainNode.connect(audioCTX.destination);
 oscillator.type = "sine";
@@ -32,6 +37,8 @@ notes.set("F", 349.2);
 notes.set("G", 392.0);
 notes.set("A", 440);
 notes.set("B", 493.9);
+
+
 
 let currentPitch = 0;
 function frequency(pitch) {
@@ -103,3 +110,41 @@ function drawWave() {
     counter = 0;
     interval = setInterval(line, 20);
 }
+function startRecording() {
+const canvasStream = canvas.captureStream(20);
+const audioDestination = audioCtx.createMediaStreamDestination();
+gainNode.connect(audioDestination);
+const combinedStream = new MediaStream();
+canvasStream.getVideoTracks().forEach(track => combinedStream.addTrack(track));
+audioDestination.stream.getAudioTracks().forEach(track => combinedStream.addTrack(track));
+recorder = new MediaRecorder(combinedStream, { mimeType: 'video/webm'});
+recorder.ondataavailable = e => {
+ if (e.data.size > 0) {
+   chunks.push(e.data);
+ }
+};
+
+
+recorder.onstop = () => {
+   const blob = new Blob(chunks, { type: 'video/webm' });
+   const url = URL.createObjectURL(blob);
+   const a = document.createElement('a');
+   a.href = url;
+   a.download = 'recording.webm';
+   a.click();
+   URL.revokeObjectURL(url);
+};
+ recorder.start();
+}
+var is_recording = false;
+function toggle() {
+is_recording = !is_recording;
+if (is_recording) {
+    recording_toggle.innerHTML = "Stop Recording!";
+    startRecording();
+} else {
+    recording_toggle.innerHTML = "Start Recording!";
+    recorder.stop();
+    }
+}
+
