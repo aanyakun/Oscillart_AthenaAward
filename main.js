@@ -3,7 +3,6 @@ var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 var width = ctx.canvas.width;
 var height = ctx.canvas.height;
-var amplitude = 54;
 var interval = null;
 var reset = false;
 var timepernote = 0;
@@ -11,10 +10,10 @@ var length = 0;
 
 
 const input = document.getElementById('input');
-
+const color_picker = document.getElementById('color');
 const audioCTX = new AudioContext();
 const gainNode = audioCTX.createGain();
-
+const volume_Slider = document.getElementById('volume-slider');
 const oscillator = audioCTX.createOscillator();
 oscillator.connect(gainNode);
 gainNode.connect(audioCTX.destination);
@@ -35,9 +34,11 @@ notes.set("B", 493.9);
 let currentPitch = 0;
 function frequency(pitch) {
     currentPitch = pitch;
-gainNode.gain.setValueAtTime(100, audioCTX.currentTime);
+gainNode.gain.setValueAtTime(volume_Slider.value, audioCTX.currentTime);
+setting = setInterval(() => {gainNode.gain.value = volume_Slider.value}, 1);
 oscillator.frequency.setValueAtTime(pitch, audioCTX.currentTime);
-gainNode.gain.setValueAtTime(0, audioCTX.currentTime + timepernote/1000 - 0.1);
+setTimeout(() => {clearInterval(setting);
+gainNode.gain.value = 0; }, ((timepernote) - 10));
 }
 
 
@@ -74,8 +75,9 @@ let y = 0;
 
 function line() {
     let freq = currentPitch / 10000;
-    y= height/2 + amplitude * Math.sin(x*2*Math.PI*freq * (0.5 *length));
+    y= height/2 + volume_Slider.value * Math.sin(x* ((2*Math.PI*freq * (0.5 *length))));
     ctx.lineTo(x,y);
+    ctx.strokeStyle = color_picker.value;
     ctx.stroke();
     x = x + 1;
     counter++;
