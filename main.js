@@ -11,6 +11,8 @@ var length = 0;
 
 const input = document.getElementById('input');
 const color_picker = document.getElementById('color');
+const wavetype_Select = document.getElementById('wavetype');
+const thickness_Slider = document.getElementById('thickness-slider');
 const audioCTX = new AudioContext();
 const gainNode = audioCTX.createGain();
 const volume_Slider = document.getElementById('volume-slider');
@@ -34,6 +36,7 @@ notes.set("B", 493.9);
 let currentPitch = 0;
 function frequency(pitch) {
     currentPitch = pitch;
+    oscillator.type = wavetype_Select.value;
 gainNode.gain.setValueAtTime(volume_Slider.value, audioCTX.currentTime);
 setting = setInterval(() => {gainNode.gain.value = volume_Slider.value}, 1);
 oscillator.frequency.setValueAtTime(pitch, audioCTX.currentTime);
@@ -75,9 +78,10 @@ let y = 0;
 
 function line() {
     let freq = currentPitch / 10000;
-    y= height/2 + volume_Slider.value * Math.sin(x* ((2*Math.PI*freq * (0.5 *length))));
+    y= height/2 + (volume_Slider.value/100) * 40 * Math.sin(x* ((2*Math.PI*freq * (0.5 *length))));
     ctx.lineTo(x,y);
     ctx.strokeStyle = color_picker.value;
+    ctx.lineWidth = thickness_Slider.value;
     ctx.stroke();
     x = x + 1;
     counter++;

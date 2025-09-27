@@ -3,7 +3,7 @@
     <head>
         <link href = "style.css" rel="stylesheet"/>
        <meta charset= "UTF-8" />
-    <title> My Site! </title>  
+    <title> My Oscillart Site! </title>  
     </head>
     <body>
  <div id="container">
@@ -11,15 +11,20 @@
   <canvas id = "canvas">
     
   </canvas>
-  
-
 
 
  </div>
- <input type = "text" id="input">
-<button id = "submit" onclick = "handle()" > Submit me please! </button>
+ <input type = "text" id="input" placeholder = "Enter different notes like CDEFGA!">
+<button id = "submit" onclick = "handle()" > Submit me please :) </button>
 <input type = "color" id = "color" value = "#ff0000">
 <input type = "range" min = "1" max = "100" value = "100" id = "volume-slider">
+<select id = "wavetype">
+    <option value = "sine"> Sine Wave! </option>
+    <option value = "triangle"> Triangle Wave! </option>
+    <option value = "square"> Square Wave! </option>
+    <option value = "sawtooth"> Sawtooth Wave! </option>
+</select>
+<input type = "range" min = "1" max = "15" value = "3" id = "thickness-slider">
  <script src = "main.js"> </script>
     </body>
 </html>
