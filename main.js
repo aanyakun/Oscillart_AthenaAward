@@ -86,6 +86,8 @@ let y = 0;
 function line() {
     let freq = currentPitch / 10000;
     y= height/2 + (volume_Slider.value/100) * 40 * Math.sin(x* ((2*Math.PI*freq * (0.5 *length))));
+    ctx.shadowBlur = 25;
+    ctx.shadowColor = color_picker.value;
     ctx.lineTo(x,y);
     ctx.strokeStyle = color_picker.value;
     ctx.lineWidth = thickness_Slider.value;
