@@ -1,3 +1,5 @@
+[![Athena Award Badge](https://img.shields.io/endpoint?url=https%3A%2F%2Faward.athena.hackclub.com%2Fapi%2Fbadge)](https://award.athena.hackclub.com?utm_source=readme)
+
 # Oscillart: Visual & Audio Waves!
 How Long this Took: This project took me about 10 hours (including days for coding & styling and also debugging/testing which took quite some while)
 Languages/Tools:
