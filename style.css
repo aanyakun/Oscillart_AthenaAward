@@ -5,13 +5,14 @@
    align-items: center;
    flex-direction: column;
    gap: 12px;
-   height: 100vh;
+
+   min-height: 100vh;
    background: white;
 }
 h1 {
    font-family: 'Trebuchet MS', sans-serif;
    color: #b2adf0;
-   margin-bottom: 20px;
+   margin-bottom: 20px 0;
    font-size: 38px;
    text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
 }
