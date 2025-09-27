@@ -64,7 +64,7 @@ function handle() {
     let j = 0;
     repeat = setInterval(() => {
         if (j < noteslist.length) {
-            frequency(noteslist[j]);
+            frequency(parseInt(noteslist[j]));
             drawWave();
             j++;
         } else {
@@ -118,6 +118,7 @@ const combinedStream = new MediaStream();
 canvasStream.getVideoTracks().forEach(track => combinedStream.addTrack(track));
 audioDestination.stream.getAudioTracks().forEach(track => combinedStream.addTrack(track));
 recorder = new MediaRecorder(combinedStream, { mimeType: 'video/webm'});
+
 recorder.ondataavailable = e => {
  if (e.data.size > 0) {
    chunks.push(e.data);
