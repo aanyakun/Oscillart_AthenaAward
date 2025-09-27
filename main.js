@@ -1,6 +1,8 @@
 //defining some main variables
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
+canvas.width = 1000;
+canvas.height = 500;
 var width = ctx.canvas.width;
 var height = ctx.canvas.height;
 var amplitude = 54;
@@ -19,7 +21,6 @@ const oscillator = audioCTX.createOscillator();
 oscillator.connect(gainNode);
 gainNode.connect(audioCTX.destination);
 oscillator.type = "sine";
-
 oscillator.start();
 gainNode.gain.value = 0;
 
@@ -38,7 +39,7 @@ function frequency(pitch) {
     currentPitch = pitch;
 gainNode.gain.setValueAtTime(100, audioCTX.currentTime);
 oscillator.frequency.setValueAtTime(pitch, audioCTX.currentTime);
-gainNode.gain.setValueAtTime(0, audioCTX.currentTime + timepernote/1000) - 0.1;
+gainNode.gain.setValueAtTime(0, audioCTX.currentTime + timepernote/1000 - 0.1);
 }
 
 
@@ -46,9 +47,9 @@ function handle() {
     reset = true;
     var usersnotes = String(input.value);
     length = usersnotes.length;
-    timepernote = (6000/ length);
+    timepernote = 6000/ length;
     var noteslist = [];
-    for (i=0; i < usersnotes.length; i++) {
+    for (i=0; i < length; i++) {
     noteslist.push(notes.get(usersnotes.charAt(i)));
     }
     let j = 0;
@@ -65,10 +66,13 @@ function handle() {
     
     audioCTX.resume();
     gainNode.gain.value = 0;
+    playNotes(noteslist);
    drawWave();
 }
 
 var counter = 0;
+let x = 0;
+let y = 0;
 
 function line() {
     let freq = currentPitch / 10000;
