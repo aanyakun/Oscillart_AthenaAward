@@ -1,8 +1,6 @@
 //defining some main variables
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
-canvas.width = 1000;
-canvas.height = 500;
 var width = ctx.canvas.width;
 var height = ctx.canvas.height;
 var amplitude = 54;
